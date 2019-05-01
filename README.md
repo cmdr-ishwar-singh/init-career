@@ -47,17 +47,17 @@ Then run `rails db:migrate`
 
 ### Configuring views
 
-We built Inquiry to help you quickly develop an application that uses inquiry. However, we don't want to be in your way when you need to customize it.
+We built Career to help you quickly develop an application that uses career. However, we don't want to be in your way when you need to customize it.
 
-Since Init-Inquiry is an engine, all its views are packaged inside the gem. These views will help you get started, but after some time you may want to change them. If this is the case, you just need to invoke the following generator, and it will copy all views to your application:
+Since Init-Career is an engine, all its views are packaged inside the gem. These views will help you get started, but after some time you may want to change them. If this is the case, you just need to invoke the following generator, and it will copy all views to your application:
 
 ```console
 $ rails generate init_career:views
 ```
 
-If you have more than one Inquiry model in your application (such as `Career` and `Job`), you will notice that Inquiry uses the same views for all models.
+If you have more than one Career model in your application (such as `Career` and `Job`), you will notice that Career uses the same views for all models.
 
-Init-Inquiry will use the default view at `app/views/careers`. You can also use the generator to generate scoped views:
+Init-Career will use the default view at `app/views/careers`. You can also use the generator to generate scoped views:
 
 ```console
 $ rails generate init_career:views careers
