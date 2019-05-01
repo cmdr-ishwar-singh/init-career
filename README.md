@@ -86,9 +86,8 @@ If the customization at the views level is not enough, you can customize each co
     ```
     (for example: `rails generate init_career:controllers careers `)
 
-
 ## Contributing
-* Ishwar-Initcoders
+* @cmdr-ishwar-singh
 
 ## License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
