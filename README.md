@@ -13,7 +13,7 @@ Init-Career is a flexible solution for Rails based. It:
 
 If you are building your first Rails application, we recommend you *do not* use Init-Career.
 
-## * Getting started
+## Getting started
 
 Init-Career 0.1.0 works with Rails 5.2.0 onwards. Add the following line to your Gemfile:
 
