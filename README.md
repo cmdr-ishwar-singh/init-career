@@ -22,6 +22,12 @@ Init-Career 0.1.0 works with Rails 5.2.0 onwards. Add the following line to your
 gem 'init_career'
 ```
 
+Or, if you want to get the latest, you can get master from the main init-career repository:
+
+```ruby
+gem 'init_career', git: "git@github.com:cmdr-ishwar-singh/init-career.git"
+```
+
 Or install it yourself as:
 ```bash
 $ gem install init_career
