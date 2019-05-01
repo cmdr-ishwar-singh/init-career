@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12" style="min-height: 300px;">
+      <div class="page_head" style="display: inline;">
+        <h3>Careers</h3>
+
+        <div class="pull-right"><%= link_to 'New Career', new_career_path, :class => "btn btn-sm btn-primary" %></div>
+      </div>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Position</th>
+            <th>Location</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @careers.each do |career| %>
+            <tr>
+              <td><%= career.title %></td>
+              <td><%= career.position %></td>
+              <td><%= career.location %></td>
+
+              <td><%= career.status ? '<label class="label label-success">Active</label>'.html_safe : '<label class="label label-danger">Disabled</label>'.html_safe %></td>
+              
+              <td>
+                <%= link_to '<i class="fa fa-eye"></i> Submissions'.html_safe, submissions_list_path(career.id), :class => "btn btn-xs btn-primary" %>
+                <%= link_to '<i class="fa fa-edit"></i> Edit'.html_safe, edit_career_path(career), :class => "btn btn-xs btn-primary" %>
+                <%= link_to '<i class="fa fa-trash"></i> Delete'.html_safe, career, method: :delete, data: { confirm: 'Are you sure?' }, :class => "btn btn-xs btn-danger" %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

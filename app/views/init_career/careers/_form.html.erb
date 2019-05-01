@@ -1,0 +1,129 @@
+<% content_for :header_style do %>
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<style>
+.toggle-off.btn-sm {
+  padding-left:20px !important;
+}
+.checkbox {
+  margin-top: 0;
+}
+.checkbox .btn.btn-sm {
+  padding: 5px 15px;
+}
+.toggle-on.btn-sm {
+    padding-right: 30px;
+}
+.toggle-off.btn-sm {
+    padding-left: 34px !important;
+}
+.q_cnt {
+  font-weight: normal;
+}
+body {counter-reset:section;}
+.q_cnt:after
+{
+counter-increment: section;
+content:counter(section);
+}
+</style>
+<% end %>
+<%= form_for(career) do |f| %>
+  <% if career.errors.any? %>
+    <div id="error_explanation" class="alert alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+      <ul>
+      <% career.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= f.label :title %>
+        <%= f.text_field :title, :class => "form-control" %>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= f.label :position %>
+        <%= f.text_field :position, :class => "form-control" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <%= f.label :location %>
+        <%= f.text_field :location, :class => "form-control" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <%= f.label :description %>
+        <%= f.text_area :description, :class => "form-control" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <%= f.label :questions %>
+        <%= link_to '<i class="fa fa-plus"></i> Add'.html_safe, career_question_path, remote: true, :class => "label label-primary"%>
+      </div>
+    </div>
+  </div>
+  <div class="question_area">
+    <% unless career.questions.nil? %>
+      <% career.questions.each_with_index do |q,indx|
+        indx = indx+1
+        %>
+      <fieldset id="ques_1"><legend><label class="q_cnt">Question </label><small class="pull-right"><a href="javascript://" class="label label-danger removeQuesField"><i class="fa fa-remove"></i> Remove</a></small></legend><div class="row"><div class="col-md-6"><div class="form-group"><label for="career_questions_<%=indx%>_question">Question</label><input type="text" name="career[questions][<%=indx%>][question]" id="career_questions_<%=indx%>_question" class="form-control" value="<%=q['question']%>" readonly="readonly"><input type="hidden" name="career[questions][<%=indx%>][is_required]" value="<%=q['is_required']%>"></div></div><div class="col-md-6"><div class="form-group"><label for="career_questions_<%=indx%>_answer_type">Answer Type</label><input type="text" name="career[questions][<%=indx%>][answer_type]" id="career_questions_0_answer_type" class="form-control" value="<%=q['answer_type']%>" readonly="readonly"></div></div>
+        <% unless q['answer_option'].nil? %>
+        <div class="col-md-12"><label for="career_questions_0_options">Options</label>
+          <% q['answer_option'].each do |ao| %>
+          <div class="form-group"><input type="text" name="career[questions][<%=indx%>][answer_option][]" class="form-control" value="<%=ao%>" readonly="readonly"></div>
+          <% end %>
+        </div>
+        <% end %>
+      </div></fieldset>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <%= f.label :status %><br>
+        <%= f.check_box :status, :data => {'toggle' => 'toggle', 'size' => "small", 'on' => 'Active', 'off' => 'Disabled', 'offstyle' => "danger", 'onstyle' => "success"} %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 m-t-10">
+      <div class="text-right">
+        <%= link_to 'Cancel'.html_safe, careers_path, :class => "btn btn-sm btn-black" %>
+        <%= f.submit "Save", :class => "btn btn-sm btn-primary" %>
+      </div>
+    </div>
+  </div>
+<% end %>
+<% content_for :footer_js do %>
+<div class="question_adding_form"></div>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
+<script>
+$('body').on('click', '.removeQuesField', function(){
+  $(this).closest('fieldset').remove();
+});
+</script>
+<% end %>

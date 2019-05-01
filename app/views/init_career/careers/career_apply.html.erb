@@ -1,0 +1,162 @@
+<section class="m-t-20" style="margin-top: 50px;margin-bottom: 50px;">
+  
+  <div class="container">
+  	<h2 class="text-center">Apply Now for <%=@career.title%></h2>
+  	<% unless @career.description.to_s.empty? %><p><%=@career.description%></p><% end %>
+		<%= form_for(@career_submission, url: career_submission_path(params[:id])) do |f| %>
+			<% if @career_submission.errors.any? %>
+		    <div id="error_explanation" class="alert alert-danger">
+		    	<button type="button" class="close" data-dismiss="alert" aria-label="Close"> <span aria-hidden="true">×</span> </button>
+		      <ul>
+		      <% @career_submission.errors.full_messages.each do |message| %>
+		        <li><%= message %></li>
+		      <% end %>
+		      </ul>
+		    </div>
+		  <% end %>
+			<%= f.hidden_field :career_id, :value => params[:id] %>
+		  <div class="row">
+		    <div class="col-md-6">
+		      <div class="form-group">
+		        <%= f.label :name do %>Name <span class="required">*</span><% end %>
+		        <%= f.text_field :name, :class => "form-control" %>
+		      </div>
+		    </div>
+
+		    <div class="col-md-6">
+		      <div class="form-group">
+		        <%= f.label :email do %>Email <span class="required">*</span><% end %>
+		        <%= f.text_field :email, :class => "form-control" %>
+		      </div>
+		    </div>
+		  </div>
+		  <div class="row">
+		    <div class="col-md-6">
+		      <div class="form-group">
+		        <%= f.label :phone %>
+		        <%= f.text_field :phone, :class => "form-control phone_no_masked" %>
+		      </div>
+		    </div>
+
+		    <div class="col-md-6">
+		      <div class="form-group">
+		        <%= f.label :current_company %>
+		        <%= f.text_field :current_company, :class => "form-control" %>
+		      </div>
+		    </div>
+		  </div>
+
+		  <fieldset>
+		  	<legend>Links</legend>
+		  	<div class="row">
+			    <div class="col-md-6">
+			      <div class="form-group">
+			        <%= f.label :linkedin_url %>
+			        <%= f.url_field :linkedin_url, :class => "form-control" %>
+			      </div>
+			    </div>
+
+			    <div class="col-md-6">
+			      <div class="form-group">
+			        <%= f.label :twitter_url %>
+			        <%= f.url_field :twitter_url, :class => "form-control" %>
+			      </div>
+			    </div>
+			  </div>
+		  	<div class="row">
+			    <div class="col-md-6">
+			      <div class="form-group">
+			        <%= f.label :github_url %>
+			        <%= f.url_field :github_url, :class => "form-control" %>
+			      </div>
+			    </div>
+
+			    <div class="col-md-6">
+			      <div class="form-group">
+			        <%= f.label :other_url %>
+			        <%= f.url_field :other_url, :class => "form-control" %>
+			      </div>
+			    </div>
+			  </div>
+		  </fieldset>
+
+		  <% unless @career.questions.nil? %>
+		  <fieldset>
+		  	<legend>General Questions</legend>
+		  	<% @career.questions.each_with_index do |q,indx|
+		        indx = indx+1 %>
+		    	<div class="row">
+		    		<div class="col-md-12">
+		    			<div class="form-group">
+		    				<label for=""><%=q['question']%><%= ' <span class="required">*</span>'.html_safe if q['is_required'] == '1' %></label><br>
+		    				<input type="hidden" name="career_submission[question_answers][<%=indx%>][question]" value="<%=q['question']%>">
+		    				<%= get_form_element(q['answer_type'], q['answer_option'], indx).html_safe %>
+		    			</div>
+		    		</div>
+		    	</div>
+		    <% end %>
+		  </fieldset>
+		  <% end %>
+
+		  <fieldset>
+		  	<div class="row">
+		  		<div class="col-md-12">
+			      <div class="form-group">
+			        <%= f.label :gender %>
+			        <%= f.select :gender, options_for_select([['Male', 'Male'], ['Female', 'Female'], ['Decline to self identify', 'Decline to self identify']], f.object.gender), {include_blank:"Select Gender"}, { :class => 'form-control', :autocomplete => "gender" } %>
+			      </div>
+			    </div>
+		  	</div>
+		  </fieldset>
+
+		  <fieldset>
+			<div class="row">
+			  <div class="col-md-12">
+		      <div class="form-group">
+		        <%= f.label :veteran_status %>
+		        <%= f.select :veteran_status, options_for_select([["I am not a protected veteran", "I am not a protected veteran"], ["I identify as one or more of the classifications of a protected veteran", "I identify as one or more of the classifications of a protected veteran"], ["I don't wish to answer", "I don't wish to answer"]], f.object.veteran_status), {include_blank:"Select Veteran Status"}, { :class => 'form-control', :autocomplete => "veteran_status" } %>
+		      </div>
+		   	 </div>
+			</div>
+		  </fieldset>
+
+		  <fieldset>
+				<div class="row">
+					<div class="col-md-12">
+				      <div class="form-group">
+				        <%= f.label :disability_status %>
+				        <%= f.select :disability_status, options_for_select([["Yes, I have a disability (or previously had a disability)", "Yes, I have a disability (or previously had a disability)"], ["No, I don't have a disability", "No, I don't have a disability"], ["I don't wish to answer", "I don't wish to answer"]], f.object.disability_status), {include_blank:"Select	Disability Status"}, { :class => 'form-control', :autocomplete => "disability_status" } %>
+				      </div>
+				    </div>
+				</div>
+		  </fieldset>
+			<hr>
+		  <div class="row">
+		  	<div class="col-md-12">
+		  		<div class="form-group">
+		  			<%= f.label :note %>
+		  			<%= f.text_area :note, :class => "form-control" %>
+		  		</div>
+		  	</div>
+		  </div>
+
+		  <div class="row">
+		    <div class="col-md-12 m-t-10">
+		      <div class="text-right">
+		        <%= link_to 'Cancel'.html_safe, careers_list_path, :class => "btn btn-secondary" %>
+		        <%= f.submit "Apply", :class => "btn btn-primary" %>
+		      </div>
+		    </div>
+		  </div>
+		<% end %>
+	</div>
+</section>
+<% content_for :footer_js do %>
+<script>
+$('.toggle').click(function (event) {
+  event.preventDefault();
+  var target = $(this).attr('href');
+  $(target).toggleClass('hidden show', 800);
+});
+</script>
+<% end %>

@@ -1,0 +1,45 @@
+<% content_for :header_style do %>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<% end %>
+<div class="container" style="min-height: 300px;">
+  <div class="row">
+    <div class="col-md-12">
+    	<h3><%=@career.title%></h3>
+    	<ol class="breadcrumb">
+			  <li><a href="<%=%>">Home</a></li>
+			  <li><a href="<%=careers_path%>">Careers</a></li>
+			  <li class="active">Submissions</li>
+			</ol>
+    </div>
+    <div class="col-md-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Current Company</th>
+            <th>Applied On</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @career.career_submissions.each do |c| %>
+          <tr>
+            <td><%=c.name%></td>
+            <td><%=c.email%></td>
+            <td><%=c.phone%></td>
+            <td><%=c.current_company%></td>
+            <td><%=set_Date(c.created_at)%></td>
+            <td><%= link_to 'View More', submission_detail_path(c.id), remote: true, :class => "label label-primary"%></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<% content_for :footer_js do %>
+<div class="submission_view_detail"></div>
+<% end %>

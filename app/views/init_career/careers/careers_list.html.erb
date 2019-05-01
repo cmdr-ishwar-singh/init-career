@@ -1,0 +1,22 @@
+<style>
+.list-group .list-group-item:hover {
+	background: #08C2D2;
+	color: #fff;
+}
+.list-group .list-group-item:hover .list-group-item-heading {
+	color: #fff
+}
+</style>
+<section class="m-t-20" style="min-height: 250px;">
+  <div class="container">
+  	<h2 class="text-center">Careers</h2>
+		<div class="list-group">
+			<% @careers.each do |c| %>
+		  <a href="<%=career_apply_path(c.id)%>" class="list-group-item">
+		    <h4 class="list-group-item-heading"><%=c.title%></h4>
+		    <p class="list-group-item-text"><%=c.location%></p>
+		  </a>
+		  <% end %>
+		</div>
+  </div>
+</section>

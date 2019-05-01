@@ -1,0 +1,90 @@
+<div class="modal fade" id="submissionDetailModal" tabindex="-1" role="dialog" aria-labelledby="submissionDetailModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+			  <h3 class="modal-title" id="submissionDetailModalLabel">Submission Details</h3>
+			  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-close"></i></button>
+			</div>
+			<div class="modal-body">
+				<div class="table-responsive">
+			    <table class="table">
+			      <tr>
+			        <td width="180" style="border-top: 0px;">Date</td>
+			        <td align="left" style="border-top: 0px;"><%= set_Date_With_Time(@career_submission.created_at) %></td>
+			      </tr>
+			      <tr>
+			        <td>Name</td>
+			        <td align="left"><%=@career_submission.name%></td>
+			      </tr>
+			      <tr>
+			        <td>Email</td>
+			        <td align="left"><%=@career_submission.email%></td>
+			      </tr>
+			      <tr>
+			        <td>Phone</td>
+			        <td align="left"><%=@career_submission.phone%></td>
+			      </tr>
+			      <tr>
+			        <td>Current Company</td>
+			        <td align="left"><%=@career_submission.current_company%></td>
+			      </tr>
+			      <tr>
+			        <td>Links</td>
+			        <td align="left">
+					      <% unless @career_submission.linkedin_url.to_s.empty? %>
+					        <a href="<%= smart_add_url_protocol(@career_submission.linkedin_url)%>" target="_blank" class="label label-primary">
+					        	<i class="fa fa-linkedin-square"></i> LinkedIn
+					        </a>&nbsp;
+					      <% end %>
+
+					      <% unless @career_submission.github_url.to_s.empty? %>
+					        <a href="<%= smart_add_url_protocol(@career_submission.github_url)%>" target="_blank" class="label label-primary">
+					        	<i class="fa fa-github-square"></i> GitHub
+					        </a>&nbsp;
+					      <% end %>
+
+					      <% unless @career_submission.twitter_url.to_s.empty? %>
+					        <a href="<%= smart_add_url_protocol(@career_submission.twitter_url)%>" target="_blank" class="label label-primary">
+					        	<i class="fa fa-twitter-square"></i> Twitter
+					        </a>&nbsp;
+					      <% end %>
+					      <% unless @career_submission.other_url.to_s.empty? %>
+					        <a href="<%= smart_add_url_protocol(@career_submission.other_url)%>" target="_blank" class="label label-primary">
+					        	<i class="fa fa-external-link"></i> Other Link
+					        </a>
+					      <% end %>
+			        </td>
+			      </tr>
+			      <% unless @career_submission.question_answers.nil? %>
+			      	<% @career_submission.question_answers.each do |qa| %>
+				      <tr>
+				        <td><%=qa['question']%></td>
+				        <td align="left"><%=qa['answer'].kind_of?(Array) ? qa['answer'].join(", ") : qa['answer']%></td>
+				      </tr>
+				      <% end %>
+			      <% end %>
+			      <tr>
+			        <td>Gender</td>
+			        <td align="left"><%=@career_submission.gender%></td>
+			      </tr>
+			      <tr>
+			        <td>Veteran Status</td>
+			        <td align="left"><%=@career_submission.veteran_status%></td>
+			      </tr>
+			      <tr>
+			        <td>Disability Status</td>
+			        <td align="left"><%=@career_submission.disability_status%></td>
+			      </tr>
+			      <tr>
+			        <td>Additional Information</td>
+			        <td align="left"><%=@career_submission.note%></td>
+			      </tr>
+			    </table>
+			  </div>
+			</div>
+			<div class="modal-footer">
+			  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+    </div>
+  </div>
+</div>

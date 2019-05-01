@@ -1,0 +1,50 @@
+$('.question_adding_form').html("<%= j render 'question_form' %>");
+$('#careerQuestionModal').modal('show');
+
+$('body').on('change', '#question_answer_type', function(){
+	$('.optionsDiv').remove();
+	var qtype = $(this).val();
+	// alert(qtype)
+	if(qtype == 'select' || qtype == 'radio' || qtype == 'checkbox') {
+		optn = '<div class="optionsDiv"><label>Option(s)</label><section><div class="form-group"><div class="input-group"><div class="optionInput"><input class="form-control" type="text" name="career[questions][0][answer_option][]"></div><span class="input-group-btn"><a href="javascript://" class="btn btn-default btn-sm addOptn"><i class="fa fa-plus"></i></a></span></div></div></section></div>'
+		$(".modal-body").append(optn);
+	}
+});
+$('body').off('click', '.addOptn');
+$('body').on('click', '.addOptn', function(){
+	var newOptn = '<div class="form-group"><div class="input-group"><div class="optionInput"><input class="form-control" type="text" name="career[questions][0][answer_option][]"></div><span class="input-group-btn"><a href="javascript://" class="btn btn-danger btn-sm removeOptn"><i class="fa fa-remove"></i></a></span></div></div>';
+
+	$('.optionsDiv section').append(newOptn);
+});
+$('body').off('click', '.removeOptn');
+$('body').on('click', '.removeOptn', function(){
+	$(this).closest('.form-group').remove();
+});
+// $('body').off('click', '.addQuestionBtn');
+var qlen = $('div.question_area').find('fieldset').length;
+
+$('body').off('submit', 'form.questionAddForm');
+$('body').on('submit', 'form.questionAddForm', function(e){
+	fqLen = qlen + 1;
+  	e.preventDefault();
+  	$this = $(this);
+  	var questionTitle = $('#question_title').val();
+  	var questionReq = $('#question_required').prop('checked');
+  	var questionType = $('#question_answer_type').val();
+  	if (questionReq == true) { q_r_val = '1' } else { q_r_val = '0' }
+  	
+  	var q_a = $this.find('.optionsDiv section .form-group');
+
+  	qHtml = '<fieldset id="ques_'+fqLen+'"><legend><label class="q_cnt">Question </label><small class="pull-right"><a href="javascript://" class="label label-danger removeQuesField"><i class="fa fa-remove"></i> Remove</a></small></legend><div class="row"><div class="col-md-6"><div class="form-group"><label for="career_questions_'+fqLen+'_question">Question</label><input type="text" name="career[questions]['+fqLen+'][question]" id="career_questions_'+fqLen+'_question" class="form-control" value="'+questionTitle+'" readonly="readonly"><input type="hidden" name="career[questions]['+fqLen+'][is_required]" value="'+q_r_val+'"></div></div><div class="col-md-6"><div class="form-group"><label for="career_questions_'+fqLen+'_answer_type">Answer Type</label><input type="text" name="career[questions]['+fqLen+'][answer_type]" id="career_questions_0_answer_type" class="form-control" value="'+questionType+'" readonly="readonly"></div></div>';
+  	if (q_a.length > 0){
+	  	qHtml += '<div class="col-md-12"><label for="career_questions_0_options">Options</label>';
+	  	for (var i = 0; i < q_a.length; i++) {
+	  		qaInputVal = $(q_a[i]).find('input').val()
+	  		qHtml += '<div class="form-group"><input type="text" name="career[questions]['+fqLen+'][answer_option][]" class="form-control" value="'+qaInputVal+'" readonly="readonly"></div>';
+	  	}
+	  	qHtml += '</div>';
+	}
+  	qHtml += '</div></fieldset>';
+	$('div.question_area').append(qHtml);
+	$('#careerQuestionModal').modal('hide');
+});
