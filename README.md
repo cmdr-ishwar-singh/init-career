@@ -1,6 +1,6 @@
 ![Career Logo](https://raw.githubusercontent.com/cmdr-ishwar-singh/init-career/master/init_logo.png)
 
-# InitCareer [Gem Version](https://d25lcipzij17d.cloudfront.net/badge.svg?id=rb&type=6&v=0.2.1&x2=0)
+# InitCareer
 
 
 By [Initcoders](http://initcoders.com/).
