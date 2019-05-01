@@ -1,7 +1,6 @@
-![career Logo](https://raw.githubusercontent.com/cmdr-ishwar-singh/init-career/master/init_logo.png)
+![Career Logo](https://raw.githubusercontent.com/cmdr-ishwar-singh/init-career/master/init_logo.png)
 
 # InitCareer
-Short description and motivation.
 
 By [Initcoders](http://initcoders.com/).
 
