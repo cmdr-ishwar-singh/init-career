@@ -84,7 +84,7 @@ If the customization at the views level is not enough, you can customize each co
       ...
     end
     ```
-    (Use the -c flag to specify a controller, for example: `rails generate init_career:controllers careers `)
+    (for example: `rails generate init_career:controllers careers `)
 
 
 ## Contributing
